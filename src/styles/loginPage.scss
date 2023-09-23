@@ -13,7 +13,7 @@
     height: 100%;
 
     .auth-section {
-      background-color: $dark-green;
+      background-color: $light-green;
       border-radius: 20px;
       margin: auto;
       width: 20%;
@@ -40,6 +40,7 @@
 
           input {
             height: 30px;
+            min-width: 20px;
             border-radius: 5px;
           }
 

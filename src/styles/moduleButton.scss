@@ -1,0 +1,44 @@
+@import "../global.scss";
+
+.modulebutton-container {
+  width: 280px;
+  height: 280px;
+  margin: 0px 5%;
+
+  .modulebutton-container__elements {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: $light-green;
+    border-radius: 10px;
+
+    .modulebutton-container__elements--image {
+      display: flex;
+      justify-content: center;
+      height: 60%;
+
+      margin: 15px 0px;
+
+      .image--element {
+        width: 170px;
+      }
+    }
+
+    .modulebutton-container__elements--button {
+      border-radius: 10px;
+      background-color: black;
+      color: white;
+      font-weight: bold;
+      width: 120px;
+      height: 40px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: rgb(35, 35, 35);
+      }
+    }
+  }
+}

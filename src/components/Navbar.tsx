@@ -2,6 +2,7 @@ import React from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { NavbarProps } from '../types/types';
+import "../styles/navbar.scss";
 
 export const Navbar: React.FC<NavbarProps> = ({ showHomeButton }) => {
     const { user, logout } = useAuth();
@@ -13,10 +14,10 @@ export const Navbar: React.FC<NavbarProps> = ({ showHomeButton }) => {
     };
 
     return (
-        <div className="navbar">
-            <span>{user?.username}</span>
-            {showHomeButton && <button onClick={() => navigate('/home')}>Home</button>}
-            <button onClick={handleLogout}>Logout</button>
+        <div className="navbar-container">
+            <span className="navbar-container__username">{user?.username}</span>
+            {showHomeButton && <button className="navbar-container__homepage-button" onClick={() => navigate('/home')}>Home</button>}
+            <button className="navbar-container__logout-button" onClick={handleLogout}>Logout</button>
         </div>
     );
 }

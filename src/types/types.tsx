@@ -5,8 +5,9 @@ export type NavbarProps = {
   showHomeButton?: boolean;
 };
 
-export type SquareButtonProps = {
+export type ModuleButtonProps = {
   label: string;
+  image?: string;
   onClick: () => void;
 };
 
@@ -20,6 +21,11 @@ export type TitleProps = {
   auxiliaryForm: boolean;
 };
 
+export type UserProps = {
+  username: string;
+  role: string;
+};
+
 // AUTH PROVIDER
 
 export type AuthProviderProps = {
@@ -28,6 +34,6 @@ export type AuthProviderProps = {
 
 export type AuthContextType = {
   user: { username: string; role: string } | null;
-  login: (username: string, password: string) => void;
+  login: (username: string, password: string) => boolean;
   logout: () => void;
 };

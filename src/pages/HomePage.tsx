@@ -1,7 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
-import { SquareButton } from "../components/SquareButton";
+import { ModuleButton } from "../components/ModuleButton";
+import { TitleSection } from "../components/TitleSection";
+import "../styles/homePage.scss";
+import { modules } from "../assets/data/modules";
 
 export const HomePage: React.FC = () => {
   const navigate = useNavigate();
@@ -14,15 +17,27 @@ export const HomePage: React.FC = () => {
     navigate("/distilation");
   };
 
+  const handleModuleClick = (moduleName: string) => {
+    navigate("/" + moduleName.toLowerCase());
+  };
+
   return (
     <div className="home-container">
-      <div className="logo-section">
-        <Navbar />
-        <h1>Welcome to Chem Application by Cunha & Cunha Consulting</h1>
-      </div>
-      <div className="content-section">
-        <SquareButton label="Tritation" onClick={handleTritationClick} />
-        <SquareButton label="Distilation" onClick={handleDistilationClick} />
+      <Navbar />
+      <TitleSection
+        title={"Chem Application Home Page"}
+        templateButton={false}
+        auxiliaryForm={false}
+      />
+      <div className="content">
+        {modules.map((module) => (
+          <ModuleButton
+            key={module.name}
+            label={module.name}
+            image={module.image}
+            onClick={() => handleModuleClick(module.name)}
+          />
+        ))}
       </div>
     </div>
   );

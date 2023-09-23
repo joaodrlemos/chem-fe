@@ -1,0 +1,55 @@
+@import "../global.scss";
+
+.navbar-container {
+  position: fixed;
+  right: 1vw;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  padding: 10px 10px 10px 10px;
+  background-color: $dark-green;
+  border-radius: 10px;
+
+  * {
+    margin: 0 5px;
+  }
+
+  button {
+  }
+
+  .navbar-container__username {
+    font-weight: bold;
+    color: white;
+  }
+
+  .navbar-container__homepage-button {
+    margin-right: 0;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    width: 120px;
+    height: 40px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(35, 35, 35);
+    }
+  }
+
+  .navbar-container__logout-button {
+    margin-right: 0;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    width: 120px;
+    height: 40px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(35, 35, 35);
+    }
+  }
+}

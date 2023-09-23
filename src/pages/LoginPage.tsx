@@ -11,14 +11,18 @@ export const LoginPage: React.FC = () => {
   const [password, setPassword] = useState("");
 
   const handleLogin = () => {
-    login(username, password);
-    navigate("/home");
+    if(login(username, password)) {
+      navigate("/home");
+    }
+    else {
+      alert("Login failed, please try again.");
+    }
   };
 
   return (
     <div className="login-container">
       <TitleSection
-        title={"Welcome to Chem Login Page"}
+        title={"Welcome to Chem Application"}
         templateButton={false}
         auxiliaryForm={false}
       />
