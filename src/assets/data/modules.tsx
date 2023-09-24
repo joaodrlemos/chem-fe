@@ -3,11 +3,11 @@ import distilationImg from "../images/modules/distilation.png";
 
 export const modules = [
   {
-    name: "tritation",
+    name: "Tritation",
     image: tritationImg,
   },
   {
-    name: "distilation",
+    name: "Distilation",
     image: distilationImg,
   },
 ];

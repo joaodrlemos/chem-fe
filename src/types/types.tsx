@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { RoutesProps } from "react-router-dom";
 
 export type NavbarProps = {
   onHomeClick?: () => void;
@@ -8,7 +9,6 @@ export type NavbarProps = {
 export type ModuleButtonProps = {
   label: string;
   image?: string;
-  onClick: () => void;
 };
 
 export type InputFormProps = {
@@ -24,6 +24,10 @@ export type TitleProps = {
 export type UserProps = {
   username: string;
   role: string;
+};
+
+export type PrivateRouteProps = {
+  children: React.ReactNode;
 };
 
 // AUTH PROVIDER

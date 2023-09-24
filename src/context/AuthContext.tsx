@@ -1,18 +1,25 @@
-import React, { createContext, useState, useContext, ReactNode } from "react";
+import React, { createContext, useState, useContext } from "react";
 import { users } from "../assets/data/users";
 import { AuthContextType, AuthProviderProps, UserProps } from "../types/types";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<UserProps | null>(null);
+  let storedUser = null;
+  const storedUserString = localStorage.getItem("user");
+  if (storedUserString) {
+    storedUser = JSON.parse(storedUserString);
+  }
+  const [user, setUser] = useState<UserProps | null>(storedUser);
 
   const login = (username: string, password: string): boolean => {
     const user = users.find(
       (u) => u.username === username && u.password === password
     );
     if (user) {
-      setUser({ username: user.username, role: user.role });
+      const loggedUser = { username: user.username, role: user.role };
+      setUser(loggedUser);
+      localStorage.setItem("user", JSON.stringify(user));
       return true;
     } else {
       return false;
@@ -21,6 +28,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const logout = () => {
     setUser(null);
+    localStorage.setItem("user", JSON.stringify(null));
   };
 
   return (
