@@ -2,14 +2,15 @@
 
 .navbar-container {
   position: fixed;
-  right: 1vw;
+  right: 2vw;
+  top: 4vh;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-
-  padding: 10px 10px 10px 10px;
   background-color: $dark-green;
   border-radius: 10px;
+
+  z-index: 100;
 
   * {
     margin: 0 5px;

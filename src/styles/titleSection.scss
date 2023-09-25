@@ -8,6 +8,8 @@
   padding: 2%;
   border-radius: 10px;
 
+  position: relative;
+
   .title-section__logo {
     display: flex;
     justify-content: center;
@@ -21,5 +23,112 @@
 
   .title-section__title {
     color: white;
+  }
+
+  .title-section__template-button {
+    position: absolute;
+
+    bottom: 4vh;
+    left: 2vw;
+  }
+
+  .title-section__professor-form {
+    position: absolute;
+    bottom: -4vh;
+    right: 2vw;
+    padding: 20px 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.1);
+
+    background-color: white;
+    border-radius: 10px;
+
+    display: flex;
+    justify-content: center;
+
+    .fields__locked-for-students-button {
+      * {
+        margin: 0px 10px;
+      }
+
+      .fields__locked-for-students-button--label {
+        font-size: 1.2em;
+      }
+
+      .fields__locked-for-students-button--toggle {
+      }
+    }
+
+    .fields__connected-students-table-container {
+      margin-top: 20px;
+      height: 130px;
+      overflow-y: auto;
+
+      table {
+        width: 100%;
+        border-spacing: 0;
+        position: relative;
+
+        thead {
+          position: sticky;
+          top: 0;
+          z-index: 1;
+        }
+
+        td {
+          font-size: 0.8em;
+          color: white;
+        }
+
+        th,
+        td {
+          width: 70%;
+          height: 40px;
+          border: 1px solid white;
+          background-color: $light-green;
+          text-align: center;
+        }
+
+        tr:not(:first-child) {
+          th,
+          td {
+            border-top: none;
+          }
+        }
+      }
+    }
+  }
+
+  button {
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    width: 120px;
+    height: 40px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(35, 35, 35);
+    }
+  }
+
+  .boolean-button {
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    width: 50px;
+    height: 30px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(35, 35, 35);
+    }
+
+    &:disabled {
+      background-color: gray;
+      color: lightgray;
+      cursor: default;
+    }
   }
 }
