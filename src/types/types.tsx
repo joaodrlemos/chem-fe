@@ -22,6 +22,8 @@ export type TitleProps = {
 };
 
 export type UserProps = {
+  id: number;
+  name: string;
   username: string;
   role: string;
 };
@@ -37,7 +39,7 @@ export type AuthProviderProps = {
 };
 
 export type AuthContextType = {
-  user: { username: string; role: string } | null;
+  user: UserProps | null;
   login: (username: string, password: string) => boolean;
   logout: () => void;
 };

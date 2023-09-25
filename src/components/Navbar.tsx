@@ -15,7 +15,7 @@ export const Navbar: React.FC<NavbarProps> = ({ showHomeButton }) => {
 
     return (
         <div className="navbar-container">
-            <span className="navbar-container__username">{user?.username}</span>
+            <span className="navbar-container__username">{user?.name}</span>
             {showHomeButton && <button className="navbar-container__homepage-button" onClick={() => navigate('/home')}>Home</button>}
             <button className="navbar-container__logout-button" onClick={handleLogout}>Logout</button>
         </div>
