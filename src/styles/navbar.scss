@@ -9,14 +9,12 @@
   align-items: center;
   background-color: $dark-green;
   border-radius: 10px;
+  padding: 10px;
 
   z-index: 100;
 
   * {
     margin: 0 5px;
-  }
-
-  button {
   }
 
   .navbar-container__username {

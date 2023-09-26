@@ -1,0 +1,63 @@
+@import "../global.scss";
+
+.outputform-area {
+  width: 40%;
+  height: 80%;
+  background-color: $light-green;
+  border-radius: 20px;
+  display: flex;
+
+  .outputform-area__title {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    color: white;
+    font-size: 1.5em;
+    font-weight: bold;
+    padding-top: 40px;
+  }
+
+  .outputform-area__form-section {
+    width: 100%;
+    flex: 8;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 40px;
+
+
+    // .form-section__inputs {
+    //   display: flex;
+    //   flex-direction: column;
+
+    //   label {
+    //     flex: 2;
+    //     color: white;
+    //   }
+
+    //   input {
+    //     flex: 8;
+    //   }
+    // }
+  }
+
+//   .form-section__submit-button {
+//     height: calc(100% - 60px);
+//     display: flex;
+//     align-items: flex-end;
+
+//     .submit-button__element {
+//       border-radius: 10px;
+//       background-color: black;
+//       color: white;
+//       font-weight: bold;
+//       width: 120px;
+//       height: 40px;
+//       cursor: pointer;
+
+//       &:hover {
+//         background-color: rgb(35, 35, 35);
+//       }
+//     }
+//   }
+}

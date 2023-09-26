@@ -58,7 +58,7 @@ export const DistilationPage: React.FC = () => {
         </div>
       </div>
       <div className="bottom-section half-section">
-        <InputForm onSubmit={handleSubmit} />
+        {/* <InputForm onSubmit={handleSubmit} /> */}
       </div>
     </div>
   );

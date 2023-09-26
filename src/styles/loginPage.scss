@@ -1,8 +1,10 @@
 @import "../global.scss";
 
 .login-container {
-  width: 100%;
-  height: 100%;
+  height: 96vh;
+  width: 98vw;
+  margin: 2vh 1vw;
+
   display: flex;
   flex-direction: column;
 
@@ -34,7 +36,7 @@
           flex-direction: column;
           align-items: center;
 
-          *{
+          * {
             margin: 2px 5px;
           }
 
@@ -48,9 +50,11 @@
             color: white;
           }
 
-          .inputs-username {}
+          .inputs-username {
+          }
 
-          .inputs-password {}
+          .inputs-password {
+          }
         }
 
         button {
@@ -63,7 +67,7 @@
           cursor: pointer;
 
           &:hover {
-            background-color: rgb(35,35,35);
+            background-color: rgb(35, 35, 35);
           }
         }
       }

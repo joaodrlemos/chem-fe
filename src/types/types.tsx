@@ -12,6 +12,7 @@ export type ModuleButtonProps = {
 };
 
 export type InputFormProps = {
+  inputType: 'tritation' | 'distilation_unifac' | 'distilation_raoult' | 'distilation_kvalue';
   onSubmit: (data: any) => void;
 };
 

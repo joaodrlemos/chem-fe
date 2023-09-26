@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import "../styles/standartPage.scss";
 import { Navbar } from "../components/Navbar";
 import { InputForm } from "../components/InputForm";
 import { TitleSection } from "../components/TitleSection";
 import { useAuth } from "../context/AuthContext";
+import { OutputForm } from "../components/OutputForm";
 
 export const TritationPage: React.FC = () => {
-    const { user } = useAuth();
+  const { user } = useAuth();
+  const [tritationValues, setTritationValues] = useState({});
 
   const handleSubmit = (values: { [key: string]: string }) => {
     const data = {
@@ -15,26 +18,22 @@ export const TritationPage: React.FC = () => {
       volumeB: values.volumeB,
     };
 
-    console.log(data);
+    setTritationValues(data);
   };
 
   return (
-    <div className="tritation-container">
+    <div className="main-container">
       <Navbar showHomeButton={true} />
       <TitleSection
         title={"Tritation Module"}
-        templateButton={user?.role === 'admin' ? true : false}
-        auxiliaryForm={user?.role === 'admin' ? true : false}
+        templateButton={user?.role === "admin" ? true : false}
+        auxiliaryForm={user?.role === "admin" ? true : false}
       />
-      <div className="content">
-        {/* <div className="top-section half-section">
-                <Navbar showHomeButton={true} />
-                <img src="../assets/images/Logo com fundo preto JPG (1).jpg" alt="Chem Logo" />
-                <h1 className="title">Tritation Module</h1>
-            </div>
-            <div className="bottom-section half-section">
-                <InputForm onSubmit={handleSubmit} />
-            </div> */}
+      <div className="content tritation">
+        <div className="tritation-content-section">
+          <InputForm inputType={"tritation"} onSubmit={handleSubmit} />
+          <OutputForm inputType={"tritation"} onSubmit={handleSubmit} />
+        </div>
       </div>
     </div>
   );

@@ -36,7 +36,7 @@
     position: absolute;
     bottom: -4vh;
     right: 2vw;
-    padding: 20px;
+    padding: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.1);
 
     background-color: white;
@@ -59,8 +59,8 @@
     }
 
     .fields__connected-students-table-container {
-      margin-top: 20px;
-      height: 130px;
+      margin-top: 10px;
+      height: 145px;
       overflow-y: auto;
 
       table {
@@ -77,11 +77,12 @@
         td {
           font-size: 0.8em;
           color: white;
+          padding: 5px 0px;
         }
 
         th,
         td {
-          width: 70%;
+          width: 50%;
           height: 40px;
           border: 1px solid white;
           background-color: $light-green;
@@ -120,6 +121,11 @@
     width: 50px;
     height: 30px;
     cursor: pointer;
+
+    &.student-connection-button {
+      width: 80px;
+      height: 40px;
+    }
 
     &:hover {
       background-color: rgb(35, 35, 35);

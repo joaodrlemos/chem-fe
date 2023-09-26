@@ -77,11 +77,11 @@ export const TitleSection: React.FC<TitleProps> = ({
                       <td>{user.name}</td>
                       <td>
                         <button
-                          className="boolean-button"
+                          className="boolean-button student-connection-button"
                           onClick={(e) => handleStudentConnection(e, user.id)}
                           style={{ color: user.connected ? "green" : "red" }}
                         >
-                          {user.connected ? "true" : "false"}
+                          {user.connected ? "connected" : "not connected"}
                         </button>
                       </td>
                     </tr>
@@ -90,10 +90,10 @@ export const TitleSection: React.FC<TitleProps> = ({
                     .fill(null)
                     .map((_, index) => (
                       <tr key={`empty-${index}`}>
-                        <td>-</td>
+                        <td style={{fontSize:'1.5em'}}>-</td>
                         <td>
-                          <button className="boolean-button" disabled>
-                            false
+                          <button className="boolean-button  student-connection-button" disabled>
+                          not connected
                           </button>
                         </td>
                       </tr>
