@@ -12,10 +12,10 @@ export const TritationPage: React.FC = () => {
 
   const handleSubmit = (values: { [key: string]: string }) => {
     const data = {
-      concentrationA: values.concentrationA,
-      concentrationB: values.concentrationB,
-      volumeA: values.volumeA,
-      volumeB: values.volumeB,
+      type: values.type,
+      concentration: values.concentration,
+      volume: values.volume,
+      addVolume: values.addVolume,
     };
 
     setTritationValues(data);
@@ -29,10 +29,10 @@ export const TritationPage: React.FC = () => {
         templateButton={user?.role === "admin" ? true : false}
         auxiliaryForm={user?.role === "admin" ? true : false}
       />
-      <div className="content tritation">
-        <div className="tritation-content-section">
+      <div className="content">
+        <div className="content__data-section">
           <InputForm inputType={"tritation"} onSubmit={handleSubmit} />
-          <OutputForm inputType={"tritation"} onSubmit={handleSubmit} />
+          <OutputForm outputType={"tritation"}/>
         </div>
       </div>
     </div>

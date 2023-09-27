@@ -1,64 +1,59 @@
 import React, { useState } from "react";
+import "../styles/standartPage.scss";
 import { Navbar } from "../components/Navbar";
 import { InputForm } from "../components/InputForm";
+import { TitleSection } from "../components/TitleSection";
+import { useAuth } from "../context/AuthContext";
+import { OutputForm } from "../components/OutputForm";
+import { dataTypes } from "../assets/data/dataTypes";
 
 export const DistilationPage: React.FC = () => {
-  const [lockedForStudents, setLockedForStudents] = useState(false);
-  const [studentsConnected, setStudentsConnected] = useState(
-    "Requests connect to screen"
+  const { user } = useAuth();
+  const [distilationValues, setDistilationValues] = useState({});
+  const [currentDistilationType, setCurrentDistilationType] =
+    useState("distilation_unifac");
+  const [distilationTypes, setDistilationTypes] = useState(
+    Object.fromEntries(Object.entries(dataTypes).filter(([key]) => key.startsWith("distilation")))
   );
-  const [joaoAlves, setJoaoAlves] = useState(false);
 
-  const handleSubmit = (values: string[]) => {
+  const handleSubmit = (values: { [key: string]: string }) => {
     const data = {
-      concentrationA: values[0],
-      concentrationB: values[1],
-      volumeA: values[2],
-      volumeB: values[3],
+      concentrationA: values.concentrationA,
+      concentrationB: values.concentrationB,
+      volumeA: values.volumeA,
+      volumeB: values.volumeB,
     };
-    console.log(data);
+
+    setDistilationValues(data);
   };
 
   return (
-    <div className="container">
-      <div className="top-section half-section">
-        <Navbar showHomeButton={true} />
-        <img
-          src="../assets/images/logos/logo_fundo_preto.jpg"
-          alt="Chem Logo"
-        />
-        <h1 className="title">Distilation Module</h1>
-        <button className="template-button">Template</button>
-        <div className="top-right-controls">
-          <div>
-            <label>Locked for students</label>
-            <input
-              type="checkbox"
-              checked={lockedForStudents}
-              onChange={() => setLockedForStudents(!lockedForStudents)}
-            />
-          </div>
-          <div>
-            <label>Students connected</label>
-            <input
-              type="text"
-              value={studentsConnected}
-              onChange={(e) => setStudentsConnected(e.target.value)}
-              disabled
-            />
-          </div>
-          <div>
-            <label>João Alves</label>
-            <input
-              type="checkbox"
-              checked={joaoAlves}
-              onChange={() => setJoaoAlves(!joaoAlves)}
-            />
-          </div>
+    <div className="main-container">
+      <Navbar showHomeButton={true} />
+      <TitleSection
+        title={"Distilation Module"}
+        templateButton={user?.role === "admin" ? true : false}
+        auxiliaryForm={user?.role === "admin" ? true : false}
+      />
+      <div className="content">
+        <select
+          className="content__distilation-type-button"
+          value={currentDistilationType}
+          onChange={(e) => setCurrentDistilationType(e.target.value)}
+        >
+          {Object.keys(distilationTypes).map((type) => (
+            <option key={type} value={type}>
+              {type.split("_")[1]}
+            </option>
+          ))}
+        </select>
+        <div className="content__data-section">
+          <InputForm
+            inputType={currentDistilationType}
+            onSubmit={handleSubmit}
+          />
+          <OutputForm outputType={currentDistilationType} />
         </div>
-      </div>
-      <div className="bottom-section half-section">
-        {/* <InputForm onSubmit={handleSubmit} /> */}
       </div>
     </div>
   );

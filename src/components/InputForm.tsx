@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { InputFormProps } from "../types/types";
 import "../styles/inputForm.scss";
+import { dataTypes } from "../assets/data/dataTypes";
 
 export const InputForm: React.FC<InputFormProps> = ({
   inputType,
   onSubmit,
 }) => {
   const [data, setData] = React.useState<any>({});
+  const [inputFields, setInputFields] = useState(dataTypes[inputType]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setData({
@@ -20,60 +22,32 @@ export const InputForm: React.FC<InputFormProps> = ({
     onSubmit(data);
   };
 
+  useEffect(() => {
+    setInputFields(dataTypes[inputType]);
+  }, [inputType]);
+
   return (
     <div className="inputform-area">
       <span className="inputform-area__title">Input</span>
       <form className="inputform-area__form-section" onSubmit={handleSubmit}>
         <table className="form-section__inputs">
           <tbody>
-            <tr className="inputs-row">
-              <td>
-                <span className="inputs-label">Type:</span>
-              </td>
-              <td>
-                <input
-                  name="tritation-type"
-                  type="text"
-                  onChange={handleChange}
-                />
-              </td>
-            </tr>
-            <tr className="inputs-row">
-              <td>
-                <span className="inputs-label">Concentration:</span>
-              </td>
-              <td>
-                <input
-                  name="tritation-concentration"
-                  type="text"
-                  onChange={handleChange}
-                />
-              </td>
-            </tr>
-            <tr className="inputs-row">
-              <td>
-                <span className="inputs-label">Volume:</span>
-              </td>
-              <td>
-                <input
-                  name="tritation-volume"
-                  type="text"
-                  onChange={handleChange}
-                />
-              </td>
-            </tr>
-            <tr className="inputs-row">
-              <td>
-                <span className="inputs-label">Add Volume:</span>
-              </td>
-              <td>
-                <input
-                  name="tritation-add-volume"
-                  type="text"
-                  onChange={handleChange}
-                />
-              </td>
-            </tr>
+            {inputFields.map((field) => {
+              return (
+                <tr className="inputs-row">
+                  <td>
+                    <span className="inputs-label">{field.label}:</span>
+                  </td>
+                  <td>
+                    <input
+                      name={field.name}
+                      type="text"
+                      onChange={handleChange}
+                    />
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
         <div className="form-section__submit-button">

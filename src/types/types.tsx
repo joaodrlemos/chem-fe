@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import { RoutesProps } from "react-router-dom";
 
 export type NavbarProps = {
   onHomeClick?: () => void;
@@ -12,8 +11,12 @@ export type ModuleButtonProps = {
 };
 
 export type InputFormProps = {
-  inputType: 'tritation' | 'distilation_unifac' | 'distilation_raoult' | 'distilation_kvalue';
+  inputType: string;
   onSubmit: (data: any) => void;
+};
+
+export type OutputProps = {
+  outputType: string;
 };
 
 export type TitleProps = {
@@ -31,6 +34,15 @@ export type UserProps = {
 
 export type PrivateRouteProps = {
   children: React.ReactNode;
+};
+
+type DataTypeMapField = {
+  name: string;
+  label: string;
+};
+
+export type DataTypesMap = {
+  [key: string]: DataTypeMapField[];
 };
 
 // AUTH PROVIDER
