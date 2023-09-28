@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TitleProps } from "../types/types";
+import { AdminInfoProps, TitleProps } from "../types/types";
 import "../styles/titleSection.scss";
 import logoTransparentLight from "../assets/images/logos/transparent_light_mode_2.png";
 import { users } from "../assets/data/users";
@@ -9,30 +9,61 @@ export const TitleSection: React.FC<TitleProps> = ({
   templateButton,
   auxiliaryForm,
 }) => {
-  const [userRoleUsers, setUserRoleUsers] = useState(
-    users.filter((user) => user.role === "user")
+  const userRoleUsers = users.filter((user) => user.role === "user");
+  let adminInfoObj = { lockedForUsers: false, users: [...userRoleUsers] };
+  const storedAdminInfoString = localStorage.getItem("adminInfo");
+  if (storedAdminInfoString) {
+    adminInfoObj = JSON.parse(storedAdminInfoString);
+  }
+  const [adminInfo, setAdminInfo] = useState<AdminInfoProps | null>(
+    adminInfoObj
   );
-  const [lockedForStudents, setLockedForStudents] = useState(false);
 
   const handleToggleLockForStudents = (
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
     e.preventDefault();
-    setLockedForStudents((p) => !p);
+    setAdminInfo((p) => {
+      if (!p) return null;
+
+      return {
+        ...p,
+        lockedForUsers: !p.lockedForUsers,
+      };
+    });
+    localStorage.setItem(
+      "adminInfo",
+      JSON.stringify({
+        lockedForUsers: !adminInfo?.lockedForUsers,
+        users: adminInfo?.users,
+      })
+    );
   };
 
-  const handleStudentConnection = (
+  const handleUserConnection = (
     e: React.MouseEvent<HTMLButtonElement>,
     userId: number
   ) => {
     e.preventDefault();
-    const updatedUsers = userRoleUsers.map((user) => {
-      if (user.id === userId) {
-        return { ...user, connected: !user.connected };
-      }
-      return user;
+    const updatedUsers =
+      adminInfo?.users.map((user) => {
+        if (user.id === userId) {
+          return { ...user, connected: !user.connected };
+        }
+        return user;
+      }) || [];
+    setAdminInfo((p) => {
+      if (!p) return null;
+
+      return { ...p, users: updatedUsers };
     });
-    setUserRoleUsers(updatedUsers);
+    localStorage.setItem(
+      "adminInfo",
+      JSON.stringify({
+        lockedForUsers: adminInfo?.lockedForUsers,
+        users: updatedUsers,
+      })
+    );
   };
 
   return (
@@ -58,9 +89,9 @@ export const TitleSection: React.FC<TitleProps> = ({
               <button
                 className="boolean-button"
                 onClick={(e) => handleToggleLockForStudents(e)}
-                style={{ color: lockedForStudents ? "green" : "red" }}
+                style={{ color: adminInfo?.lockedForUsers ? "green" : "red" }}
               >
-                {lockedForStudents ? "true" : "false"}
+                {adminInfo?.lockedForUsers ? "true" : "false"}
               </button>
             </div>
             <div className="fields__connected-students-table-container">
@@ -72,13 +103,13 @@ export const TitleSection: React.FC<TitleProps> = ({
                   </tr>
                 </thead>
                 <tbody className="scrollable-tbody">
-                  {userRoleUsers.map((user) => (
+                  {adminInfoObj.users.map((user) => (
                     <tr key={user.id}>
                       <td>{user.name}</td>
                       <td>
                         <button
                           className="boolean-button student-connection-button"
-                          onClick={(e) => handleStudentConnection(e, user.id)}
+                          onClick={(e) => handleUserConnection(e, user.id)}
                           style={{ color: user.connected ? "green" : "red" }}
                         >
                           {user.connected ? "connected" : "not connected"}
@@ -90,10 +121,13 @@ export const TitleSection: React.FC<TitleProps> = ({
                     .fill(null)
                     .map((_, index) => (
                       <tr key={`empty-${index}`}>
-                        <td style={{fontSize:'1.5em'}}>-</td>
+                        <td style={{ fontSize: "1.5em" }}>-</td>
                         <td>
-                          <button className="boolean-button  student-connection-button" disabled>
-                          not connected
+                          <button
+                            className="boolean-button  student-connection-button"
+                            disabled
+                          >
+                            not connected
                           </button>
                         </td>
                       </tr>

@@ -17,9 +17,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       (u) => u.username === username && u.password === password
     );
     if (user) {
-      const loggedUser = { id: user.id, name: user.name, username: user.username, role: user.role };
+      const loggedUser = {
+        id: user.id,
+        name: user.name,
+        username: user.username,
+        connected: user.connected,
+        role: user.role,
+      };
       setUser(loggedUser);
-      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("user", JSON.stringify(loggedUser));
       return true;
     } else {
       return false;

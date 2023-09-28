@@ -11,14 +11,13 @@ export const dataTypes: DataTypesMap = {
     { name: "temperature", label: "Temperature(ºC)" },
     { name: "compound1", label: "Compound 1" },
     { name: "compound2", label: "Compound 2" },
-    { name: "x1", label: "x1" },
+    { name: "molarFractionCompound1", label: "Molar Fraction Compound 1" },
   ],
   distilation_raoult: [
     { name: "pressure", label: "Pressure(bar)" },
     { name: "temperature", label: "Temperature(ºC)" },
     { name: "compound1", label: "Compound 1" },
-    { name: "compound2", label: "Compound 2" },
-    { name: "compound3", label: "Compound 3" },
+    { name: "compound2and3", label: "Compound 2/3" },
     { name: "x1", label: "x1" },
   ],
   distilation_kvalue: [

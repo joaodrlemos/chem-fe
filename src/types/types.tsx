@@ -29,7 +29,13 @@ export type UserProps = {
   id: number;
   name: string;
   username: string;
+  connected?: boolean;
   role: string;
+};
+
+export type AdminInfoProps = {
+  lockedForUsers: boolean;
+  users: Array<UserProps>;
 };
 
 export type PrivateRouteProps = {

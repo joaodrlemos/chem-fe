@@ -11,7 +11,6 @@ import { HomePage } from "./pages/HomePage";
 import { TritationPage } from "./pages/TritationPage";
 import { DistilationPage } from "./pages/DistilationPage";
 import { PrivateRoute } from "./components/PrivateRoute";
-import "./app.scss";
 
 export const App: React.FC = () => {
   return (
@@ -27,45 +26,43 @@ const AppContent: React.FC = () => {
   const { user } = useAuth();
 
   return (
-    <div className="app-container">
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <PrivateRoute>
-              <LoginPage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/login"
-          element={user ? <Navigate to="/home" replace /> : <LoginPage />}
-        />
-        <Route
-          path="/home"
-          element={
-            <PrivateRoute>
-              <HomePage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/tritation"
-          element={
-            <PrivateRoute>
-              <TritationPage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/distilation"
-          element={
-            <PrivateRoute>
-              <DistilationPage />
-            </PrivateRoute>
-          }
-        />
-      </Routes>
-    </div>
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <PrivateRoute>
+            <LoginPage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/login"
+        element={user ? <Navigate to="/home" replace /> : <LoginPage />}
+      />
+      <Route
+        path="/home"
+        element={
+          <PrivateRoute>
+            <HomePage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/tritation"
+        element={
+          <PrivateRoute>
+            <TritationPage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/distilation"
+        element={
+          <PrivateRoute>
+            <DistilationPage />
+          </PrivateRoute>
+        }
+      />
+    </Routes>
   );
 };
