@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { AdminInfoProps, TitleProps } from "../types/types";
+import React, { useState, useEffect, useMemo } from "react";
+import { AdminInfoProps, TitleProps, UserProps } from "../types/types";
 import "../styles/titleSection.scss";
 import logoTransparentLight from "../assets/images/logos/transparent_light_mode_2.png";
 import { users } from "../assets/data/users";
@@ -9,35 +9,66 @@ export const TitleSection: React.FC<TitleProps> = ({
   templateButton,
   auxiliaryForm,
 }) => {
-  const userRoleUsers = users.filter((user) => user.role === "user");
-  let adminInfoObj = { lockedForUsers: false, users: [...userRoleUsers] };
-  const storedAdminInfoString = localStorage.getItem("adminInfo");
-  if (storedAdminInfoString) {
-    adminInfoObj = JSON.parse(storedAdminInfoString);
-  }
-  const [adminInfo, setAdminInfo] = useState<AdminInfoProps | null>(
-    adminInfoObj
+  const userRoleUsers = useMemo(
+    () => users.filter((user) => user.role === "user"),
+    []
   );
+
+  const [adminInfo, setAdminInfo] = useState<AdminInfoProps | null>(() => {
+    const storedAdminInfoString = localStorage.getItem("adminInfo");
+    if (storedAdminInfoString) {
+      return JSON.parse(storedAdminInfoString);
+    } else {
+      return { lockedForUsers: false, users: [...userRoleUsers] };
+    }
+  });
+
+  useEffect(() => {
+    let adminInfoObj: AdminInfoProps = {
+      lockedForUsers: false,
+      users: [...userRoleUsers],
+    };
+    const storedAdminInfoString = localStorage.getItem("adminInfo");
+    if (storedAdminInfoString) {
+      adminInfoObj = JSON.parse(storedAdminInfoString);
+    }
+
+    const mainArray = adminInfoObj.users;
+    const newArray = userRoleUsers;
+
+    const newMap = new Map(newArray.map((user) => [user.name, user]));
+
+    const updatedExistingUsers: UserProps[] = mainArray
+      .filter((user) => newMap.has(user.name))
+      .map((user) => {
+        const newUser = newMap.get(user.name) as UserProps;
+        return { ...newUser, connected: user.connected };
+      });
+
+    const newUsers: UserProps[] = newArray.filter(
+      (newUser) => !mainArray.some((mainUser) => mainUser.name === newUser.name)
+    ) as UserProps[];
+
+    adminInfoObj.users = [...updatedExistingUsers, ...newUsers];
+
+    setAdminInfo(adminInfoObj);
+  }, [userRoleUsers]);
 
   const handleToggleLockForStudents = (
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
     e.preventDefault();
-    setAdminInfo((p) => {
-      if (!p) return null;
+    setAdminInfo((prevAdminInfo) => {
+      if (!prevAdminInfo) return null;
 
-      return {
-        ...p,
-        lockedForUsers: !p.lockedForUsers,
+      const updatedAdminInfo = {
+        ...prevAdminInfo,
+        lockedForUsers: !prevAdminInfo.lockedForUsers,
       };
+      localStorage.setItem("adminInfo", JSON.stringify(updatedAdminInfo));
+
+      return updatedAdminInfo;
     });
-    localStorage.setItem(
-      "adminInfo",
-      JSON.stringify({
-        lockedForUsers: !adminInfo?.lockedForUsers,
-        users: adminInfo?.users,
-      })
-    );
   };
 
   const handleUserConnection = (
@@ -45,25 +76,18 @@ export const TitleSection: React.FC<TitleProps> = ({
     userId: number
   ) => {
     e.preventDefault();
-    const updatedUsers =
-      adminInfo?.users.map((user) => {
-        if (user.id === userId) {
-          return { ...user, connected: !user.connected };
-        }
-        return user;
-      }) || [];
-    setAdminInfo((p) => {
-      if (!p) return null;
+    setAdminInfo((prevAdminInfo) => {
+      if (!prevAdminInfo) return null;
 
-      return { ...p, users: updatedUsers };
+      const updatedUsers = prevAdminInfo.users.map((user) =>
+        user.id === userId ? { ...user, connected: !user.connected } : user
+      );
+
+      const updatedAdminInfo = { ...prevAdminInfo, users: updatedUsers };
+      localStorage.setItem("adminInfo", JSON.stringify(updatedAdminInfo));
+
+      return updatedAdminInfo;
     });
-    localStorage.setItem(
-      "adminInfo",
-      JSON.stringify({
-        lockedForUsers: adminInfo?.lockedForUsers,
-        users: updatedUsers,
-      })
-    );
   };
 
   return (
@@ -103,7 +127,7 @@ export const TitleSection: React.FC<TitleProps> = ({
                   </tr>
                 </thead>
                 <tbody className="scrollable-tbody">
-                  {adminInfoObj.users.map((user) => (
+                  {adminInfo?.users.map((user) => (
                     <tr key={user.id}>
                       <td>{user.name}</td>
                       <td>
