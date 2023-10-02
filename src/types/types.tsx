@@ -12,7 +12,7 @@ export type ModuleButtonProps = {
 
 export type InputFormProps = {
   inputType: string;
-  onSubmit: (data: any) => void;
+  typeSubmit: (data: any) => void;
 };
 
 export type OutputProps = {
@@ -21,7 +21,6 @@ export type OutputProps = {
 
 export type TitleProps = {
   title: string;
-  templateButton: boolean;
   auxiliaryForm: boolean;
 };
 
@@ -42,13 +41,51 @@ export type PrivateRouteProps = {
   children: React.ReactNode;
 };
 
-type DataTypeMapField = {
+type DataTypeMapFieldProps = {
   name: string;
   label: string;
 };
 
+type TritationTemplateType = {
+  id: number;
+  type: string;
+  concentration: string;
+  volume: string;
+  addVolume: string;
+};
+
+type DistilationUnifacTemplateType = {
+  id: number;
+  temperature: number;
+  compound1: string;
+  compound2: string;
+  molarFractionCompound1: number ;
+};
+
+type DistilationRaoultTemplateType = {
+  id: number;
+  pressure: string;
+  temperature: number;
+  compound1: string;
+  compound2: string;
+  x1: string;
+  graphType: string;
+};
+
+type DistilationKvalueTemplateType = {
+  id: number;
+  type: string;
+  concentration: string;
+  volume: string;
+  addVolume: string;
+};
+
 export type DataTypesMap = {
-  [key: string]: DataTypeMapField[];
+  [key: string]: DataTypeMapFieldProps[];
+};
+
+export type DataTypesTemplates = {
+  [key: string]: TritationTemplateType[] | DistilationUnifacTemplateType[] | DistilationRaoultTemplateType[] | DistilationKvalueTemplateType[];
 };
 
 // AUTH PROVIDER

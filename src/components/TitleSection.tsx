@@ -6,7 +6,6 @@ import { users } from "../assets/data/users";
 
 export const TitleSection: React.FC<TitleProps> = ({
   title,
-  templateButton,
   auxiliaryForm,
 }) => {
   const userRoleUsers = useMemo(
@@ -100,9 +99,6 @@ export const TitleSection: React.FC<TitleProps> = ({
         />
       </div>
       <h1 className="title-section__title">{title}</h1>
-      {templateButton && (
-        <button className="title-section__template-button">Template</button>
-      )}
       {auxiliaryForm && (
         <form className="title-section__professor-form">
           <div className="title-section__professor-form--fields">

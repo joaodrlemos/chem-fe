@@ -11,7 +11,6 @@ export const HomePage: React.FC = () => {
       <Navbar />
       <TitleSection
         title={"Chem Application Home Page"}
-        templateButton={false}
         auxiliaryForm={false}
       />
       <div className="content">

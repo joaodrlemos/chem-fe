@@ -23,7 +23,6 @@ export const LoginPage: React.FC = () => {
     <div className="login-container">
       <TitleSection
         title={"Welcome to Chem Application"}
-        templateButton={false}
         auxiliaryForm={false}
       />
       <div className="content">

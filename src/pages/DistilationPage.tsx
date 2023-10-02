@@ -12,9 +12,6 @@ export const DistilationPage: React.FC = () => {
   const [distilationValues, setDistilationValues] = useState({});
   const [currentDistilationType, setCurrentDistilationType] =
     useState("distilation_unifac");
-  const [distilationTypes, setDistilationTypes] = useState(
-    Object.fromEntries(Object.entries(dataTypes).filter(([key]) => key.startsWith("distilation")))
-  );
 
   const handleSubmit = (values: { [key: string]: string }) => {
     const data = {
@@ -32,25 +29,13 @@ export const DistilationPage: React.FC = () => {
       <Navbar showHomeButton={true} />
       <TitleSection
         title={"Distilation Module"}
-        templateButton={user?.role === "admin" ? true : false}
         auxiliaryForm={user?.role === "admin" ? true : false}
       />
-      <div className="content">
-        <select
-          className="content__distilation-type-button"
-          value={currentDistilationType}
-          onChange={(e) => setCurrentDistilationType(e.target.value)}
-        >
-          {Object.keys(distilationTypes).map((type) => (
-            <option key={type} value={type}>
-              {type.split("_")[1]}
-            </option>
-          ))}
-        </select>
+      <div className="distilation content">
         <div className="content__data-section">
           <InputForm
             inputType={currentDistilationType}
-            onSubmit={handleSubmit}
+            typeSubmit={(v)=> setCurrentDistilationType(v)}
           />
           <OutputForm outputType={currentDistilationType} />
         </div>

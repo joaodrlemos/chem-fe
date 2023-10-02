@@ -1,23 +1,21 @@
 @import "../global.scss";
 
 .inputform-area {
-  height: 70%;
   background-color: $light-green;
   border-radius: 20px;
-  display: flex;
-
-  .inputform-area__title {
-    display: flex;
-    justify-content: center;
-    color: white;
-    font-size: 1.5em;
-    font-weight: bold;
-    padding: 20px 20px;
-  }
+  padding: 30px;
 
   .inputform-area__form-section {
     display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     align-items: center;
+    gap: 20px;
+
+    .form-section__input-buttons {
+      width: 100%;
+      display: flex;
+    }
 
     .form-section__inputs {
       .inputs-label {
@@ -37,24 +35,49 @@
     }
   }
 
-  .form-section__submit-button {
-    height: calc(100% - 60px);
-    margin: 0px 20px;
-    display: flex;
-    align-items: flex-end;
+  select {
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    width: 100px;
+    height: 40px;
+    cursor: pointer;
+    padding: 0px 10px;
 
-    .submit-button__element {
-      border-radius: 10px;
-      background-color: black;
-      color: white;
-      font-weight: bold;
-      width: 120px;
-      height: 40px;
-      cursor: pointer;
-
-      &:hover {
-        background-color: rgb(35, 35, 35);
-      }
+    &:hover {
+      background-color: rgb(35, 35, 35);
     }
+  }
+
+  button {
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    width: 120px;
+    height: 40px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(35, 35, 35);
+    }
+  }
+
+  .form-section__template-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+    button {
+      width: 80px;
+    }
+  }
+
+  .form-section__submit-button {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
   }
 }

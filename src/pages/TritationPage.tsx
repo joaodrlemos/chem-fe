@@ -26,12 +26,11 @@ export const TritationPage: React.FC = () => {
       <Navbar showHomeButton={true} />
       <TitleSection
         title={"Tritation Module"}
-        templateButton={user?.role === "admin" ? true : false}
         auxiliaryForm={user?.role === "admin" ? true : false}
       />
-      <div className="content">
+      <div className="tritation content">
         <div className="content__data-section">
-          <InputForm inputType={"tritation"} onSubmit={handleSubmit} />
+          <InputForm inputType={"tritation"} typeSubmit={handleSubmit} />
           <OutputForm outputType={"tritation"}/>
         </div>
       </div>
