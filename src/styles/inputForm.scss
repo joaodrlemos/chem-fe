@@ -48,6 +48,12 @@
     &:hover {
       background-color: rgb(35, 35, 35);
     }
+
+    &.inputs-graph-type {
+      background-color: white;
+      color: black;
+      width: 143px;
+    }
   }
 
   button {

@@ -18,7 +18,9 @@ export const InputForm: React.FC<InputFormProps> = ({
     null
   );
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = event.target;
 
     if (name === "temperature" && parseFloat(value) < -273.15) {
@@ -46,6 +48,8 @@ export const InputForm: React.FC<InputFormProps> = ({
 
   useEffect(() => {
     setInputFields(dataTypes[inputType]);
+    setData({});
+    setTemplateValue("");
   }, [inputType]);
 
   useEffect(() => {
@@ -118,12 +122,26 @@ export const InputForm: React.FC<InputFormProps> = ({
                     <span className="inputs-label">{field.label}:</span>
                   </td>
                   <td>
-                    <input
-                      name={field.name}
-                      type="text"
-                      value={formatInputValue(data[field.name])}
-                      onChange={handleChange}
-                    />
+                    {field.name === "graphType" ? (
+                      <select
+                        className="inputs-graph-type"
+                        name={field.name}
+                        value={data[field.name] || ""}
+                        onChange={handleChange}
+                      >
+                        <option value="">Graph Type</option>
+                        <option value="Type1">Equilibrium</option>
+                        <option value="Type2">Temperature</option>
+                        <option value="Type3">Pressure</option>
+                      </select>
+                    ) : (
+                      <input
+                        name={field.name}
+                        type="text"
+                        value={formatInputValue(data[field.name])}
+                        onChange={handleChange}
+                      />
+                    )}
                   </td>
                 </tr>
               );

@@ -74,19 +74,3 @@
     }
   }
 }
-
-/* Tablet Styles */
-@media (max-width: 1024px) and (min-width: 768px) {
-  .login-container .content .auth-section {
-    width: 70%;
-    height: 80%;
-  }
-}
-
-/* Mobile Styles */
-@media (max-width: 767px) {
-  .login-container .content .auth-section {
-    width: 90%;
-    height: 90%;
-  }
-}

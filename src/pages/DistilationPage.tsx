@@ -5,23 +5,14 @@ import { InputForm } from "../components/InputForm";
 import { TitleSection } from "../components/TitleSection";
 import { useAuth } from "../context/AuthContext";
 import { OutputForm } from "../components/OutputForm";
-import { dataTypes } from "../assets/data/dataTypes";
 
 export const DistilationPage: React.FC = () => {
   const { user } = useAuth();
-  const [distilationValues, setDistilationValues] = useState({});
   const [currentDistilationType, setCurrentDistilationType] =
     useState("distilation_unifac");
 
-  const handleSubmit = (values: { [key: string]: string }) => {
-    const data = {
-      concentrationA: values.concentrationA,
-      concentrationB: values.concentrationB,
-      volumeA: values.volumeA,
-      volumeB: values.volumeB,
-    };
-
-    setDistilationValues(data);
+  const handleSubmitChange = (destilationType: string) => {
+    setCurrentDistilationType(destilationType);
   };
 
   return (
@@ -34,8 +25,11 @@ export const DistilationPage: React.FC = () => {
       <div className="distilation content">
         <div className="content__data-section">
           <InputForm
+            key={currentDistilationType}
             inputType={currentDistilationType}
-            typeSubmit={(v)=> setCurrentDistilationType(v)}
+            typeSubmit={(destilationType) =>
+              handleSubmitChange(destilationType)
+            }
           />
           <OutputForm outputType={currentDistilationType} />
         </div>

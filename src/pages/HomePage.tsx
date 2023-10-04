@@ -13,7 +13,7 @@ export const HomePage: React.FC = () => {
         title={"Chem Application Home Page"}
         auxiliaryForm={false}
       />
-      <div className="content">
+      <div className="content home">
         {modules.map((module) => (
           <ModuleButton
             key={module.name}

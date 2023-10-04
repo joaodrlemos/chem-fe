@@ -30,7 +30,7 @@ export const TritationPage: React.FC = () => {
       />
       <div className="tritation content">
         <div className="content__data-section">
-          <InputForm inputType={"tritation"} typeSubmit={handleSubmit} />
+          <InputForm key={"tritation"} inputType={"tritation"} typeSubmit={handleSubmit} />
           <OutputForm outputType={"tritation"}/>
         </div>
       </div>

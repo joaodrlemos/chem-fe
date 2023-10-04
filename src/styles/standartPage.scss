@@ -21,6 +21,11 @@
     position: relative;
     padding-top: 40px;
 
+    &.home {
+      height: 100%;
+      padding-top: 0px;
+    }
+
     &.distilation {
       flex-direction: column;
       padding-top: 20px;
@@ -33,26 +38,5 @@
       align-items: center;
       gap: 40px;
     }
-  }
-}
-
-/* Tablet Styles */
-@media (max-width: 1024px) and (min-width: 768px) {
-  .main-container .content {
-    flex-direction: column;
-    .content__distilation-type-button {
-      top: 2vh;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-  }
-}
-
-/* Mobile Styles */
-@media (max-width: 767px) {
-  .main-container .content .content__distilation-type-button {
-    top: 2vh;
-    left: 50%;
-    transform: translateX(-50%);
   }
 }
