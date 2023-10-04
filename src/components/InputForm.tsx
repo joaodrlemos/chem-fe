@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { InputFormProps } from "../types/types";
+import { InputFormProps, TemplateType } from "../types/types";
 import "../styles/inputForm.scss";
 import { dataTypes } from "../assets/data/dataTypes";
 import { templates } from "../assets/data/templates";
@@ -13,12 +13,22 @@ export const InputForm: React.FC<InputFormProps> = ({
   const distilationTypes = Object.fromEntries(
     Object.entries(dataTypes).filter(([key]) => key.startsWith("distilation"))
   );
-  const [templateValue, setTemplateValue] = useState({});
+  const [templateValue, setTemplateValue] = useState<string | undefined>("");
+  const [selectedTemplate, setSelectedTemplate] = useState<TemplateType | null>(
+    null
+  );
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    if (name === "temperature" && parseFloat(value) < -273.15) {
+      alert("Temperature cannot be lower than -273.15.");
+      return;
+    }
+
     setData({
       ...data,
-      [event.target.name]: event.target.value,
+      [name]: value,
     });
   };
 
@@ -27,14 +37,22 @@ export const InputForm: React.FC<InputFormProps> = ({
     typeSubmit(data);
   };
 
-  const templateSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-
-  }
+  const formatInputValue = (value: any): string => {
+    if (typeof value === "number") {
+      return value.toString();
+    }
+    return value || "";
+  };
 
   useEffect(() => {
     setInputFields(dataTypes[inputType]);
   }, [inputType]);
+
+  useEffect(() => {
+    if (selectedTemplate) {
+      setData(selectedTemplate as any);
+    }
+  }, [selectedTemplate]);
 
   return (
     <div className="inputform-area">
@@ -61,17 +79,29 @@ export const InputForm: React.FC<InputFormProps> = ({
           >
             <select
               className="template-buttons__dropdown-element"
-              value={'template'}
-              // onChange={(e) => templateSubmit(e.target.value)}
+              value={templateValue}
+              onChange={(e) => {
+                setTemplateValue(e.target.value);
+                if (e.target.value === "") {
+                  setData({});
+                  setSelectedTemplate(null);
+                } else {
+                  const selectedTemplate = (
+                    templates[inputType] as TemplateType[]
+                  ).find((template) => template.id === Number(e.target.value));
+                  setSelectedTemplate(selectedTemplate || null);
+                }
+              }}
             >
-              <option value={'template'}>Template</option>
-              {/* {Object.keys(templates).map((type) => (
-                <option key={type} value={type}>
-                  {type.split("_")[1]}
+              <option value="">template</option>
+              {templates[inputType]?.map((template, index) => (
+                <option key={index} value={template.id}>
+                  {template.id}
                 </option>
-              ))} */}
+              ))}
             </select>
-            <button disabled
+            <button
+              disabled
               className="template-buttons__save-template-element"
             >
               Save
@@ -81,9 +111,9 @@ export const InputForm: React.FC<InputFormProps> = ({
 
         <table className="form-section__inputs">
           <tbody>
-            {inputFields.map((field) => {
+            {inputFields.map((field, id) => {
               return (
-                <tr className="inputs-row">
+                <tr key={id} className="inputs-row">
                   <td>
                     <span className="inputs-label">{field.label}:</span>
                   </td>
@@ -91,6 +121,7 @@ export const InputForm: React.FC<InputFormProps> = ({
                     <input
                       name={field.name}
                       type="text"
+                      value={formatInputValue(data[field.name])}
                       onChange={handleChange}
                     />
                   </td>
@@ -100,7 +131,7 @@ export const InputForm: React.FC<InputFormProps> = ({
           </tbody>
         </table>
         <div className="form-section__submit-button">
-          <button className="submit-button__element" type="submit">
+          <button disabled className="submit-button__element" type="submit">
             Submit
           </button>
         </div>

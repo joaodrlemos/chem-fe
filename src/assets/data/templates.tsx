@@ -9,5 +9,6 @@ export const templates: DataTypesTemplates = {
   distilation_raoult: [
   ],
   distilation_kvalue: [
+    { id:1, pressure: 1, temperature: 25, compound1: "CH4", compound2: "C2H4" },
   ],
 };

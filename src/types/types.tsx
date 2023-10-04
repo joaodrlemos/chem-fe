@@ -59,12 +59,12 @@ type DistilationUnifacTemplateType = {
   temperature: number;
   compound1: string;
   compound2: string;
-  molarFractionCompound1: number ;
+  molarFractionCompound1: number;
 };
 
 type DistilationRaoultTemplateType = {
   id: number;
-  pressure: string;
+  pressure: number;
   temperature: number;
   compound1: string;
   compound2: string;
@@ -74,10 +74,10 @@ type DistilationRaoultTemplateType = {
 
 type DistilationKvalueTemplateType = {
   id: number;
-  type: string;
-  concentration: string;
-  volume: string;
-  addVolume: string;
+  pressure: number;
+  temperature: number;
+  compound1: string;
+  compound2: string;
 };
 
 export type DataTypesMap = {
@@ -85,7 +85,16 @@ export type DataTypesMap = {
 };
 
 export type DataTypesTemplates = {
-  [key: string]: TritationTemplateType[] | DistilationUnifacTemplateType[] | DistilationRaoultTemplateType[] | DistilationKvalueTemplateType[];
+  [key: string]:
+    | TritationTemplateType[]
+    | DistilationUnifacTemplateType[]
+    | DistilationRaoultTemplateType[]
+    | DistilationKvalueTemplateType[];
+};
+
+export type TemplateType = {
+  id: number;
+  [key: string]: any;
 };
 
 // AUTH PROVIDER
@@ -99,5 +108,3 @@ export type AuthContextType = {
   login: (username: string, password: string) => boolean;
   logout: () => void;
 };
-
-
