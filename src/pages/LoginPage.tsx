@@ -24,6 +24,7 @@ export const LoginPage: React.FC = () => {
       <TitleSection
         title={"Welcome to Chem Application"}
         auxiliaryForm={false}
+        noNav
       />
       <div className="content">
         <div className="auth-section">

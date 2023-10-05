@@ -22,6 +22,7 @@ export type OutputProps = {
 export type TitleProps = {
   title: string;
   auxiliaryForm: boolean;
+  noNav?: boolean;
 };
 
 export type UserProps = {
@@ -68,8 +69,9 @@ type DistilationRaoultTemplateType = {
   temperature: number;
   compound1: string;
   compound2: string;
-  x1: string;
-  graphType: string;
+  x1: number;
+  state: string;
+  graphType?: string;
 };
 
 type DistilationKvalueTemplateType = {

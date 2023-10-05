@@ -5,6 +5,10 @@
   border-radius: 20px;
   padding: 30px;
 
+  @include mobile {
+    padding: 20px;
+  }
+
   .inputform-area__form-section {
     display: flex;
     flex-direction: column;
@@ -21,6 +25,10 @@
       .inputs-label {
         color: white;
         font-size: 1.1em;
+
+        @include mobile {
+          font-size: 0.8em;
+        }
       }
 
       input {

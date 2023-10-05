@@ -11,19 +11,22 @@
 
   position: relative;
 
+  @include mobile {
+    top:60px;
+    padding: 6%;
+  }
+
   .title-section__logo {
     display: flex;
     justify-content: center;
     .title-section__logo--element {
-      width: 20vw;
-      height: 20vw;
-      max-width: 100px;
-      max-height: 100px;
+      width: 30%;
     }
   }
 
   .title-section__title {
     color: white;
+    font-size: calc(12px + 1.5vw);
   }
 
   .title-section__template-button {
@@ -35,7 +38,6 @@
 
   .title-section__professor-form {
     position: absolute;
-    top: 4vh;
     right: 2vw;
     padding: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -46,6 +48,10 @@
     display: flex;
     justify-content: center;
 
+    @include mobile {
+      position: static;
+    }
+
     .fields__locked-for-students-button {
       * {
         margin: 0px 10px;
@@ -54,6 +60,10 @@
       .fields__locked-for-students-button--label {
         font-size: 1em;
         font-weight: bold;
+
+        @include mobile {
+          font-size: 0.8em;
+        }
       }
 
       .fields__locked-for-students-button--toggle {
@@ -145,5 +155,19 @@
       color: lightgray;
       cursor: default;
     }
+  }
+}
+
+/* Tablet Styles */
+@media (max-width: 1280px) and (max-height: 800px) {
+  body {
+    /* your tablet styles go here */
+  }
+}
+
+/* Mobile Styles */
+@media (max-width: 414px) and (max-height: 896px) {
+  body {
+    /* your mobile styles go here */
   }
 }

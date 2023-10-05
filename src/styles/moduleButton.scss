@@ -5,6 +5,11 @@
   height: 280px;
   margin: 0px 5%;
 
+  @include mobile {
+    width: 80%;
+    height: 50%;
+  }
+
   .modulebutton-container__elements {
     width: 100%;
     height: 100%;
@@ -22,8 +27,17 @@
 
       margin: 15px 0px;
 
+      @include mobile {
+        margin: 0;
+      }
+
       .image--element {
         width: 170px;
+
+        @include mobile {
+          width: 90%;
+          height: 90%;
+        }
       }
     }
 

@@ -7,6 +7,7 @@ import { users } from "../assets/data/users";
 export const TitleSection: React.FC<TitleProps> = ({
   title,
   auxiliaryForm,
+  noNav
 }) => {
   const userRoleUsers = useMemo(
     () => users.filter((user) => user.role === "user"),
@@ -90,7 +91,7 @@ export const TitleSection: React.FC<TitleProps> = ({
   };
 
   return (
-    <div className="title-section">
+    <div style={{top:noNav?'0px':''}} className="title-section">
       <div className="title-section__logo">
         <img
           className="title-section__logo--element"
