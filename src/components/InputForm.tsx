@@ -5,6 +5,7 @@ import { dataTypes } from "../assets/data/dataTypes";
 import { templates } from "../assets/data/templates";
 
 export const InputForm: React.FC<InputFormProps> = ({
+  onSubmit,
   inputType,
   changeDistilationType,
 }) => {
@@ -23,15 +24,17 @@ export const InputForm: React.FC<InputFormProps> = ({
   ) => {
     const { name, value } = event.target;
 
-    if (name === "temperature" && parseFloat(value) < -273.15) {
-      alert("Temperature cannot be lower than -273.15.");
-      return;
-    }
-
-    setData({
-      ...data,
+    setData((previousData: any) => ({
+      ...previousData,
       [name]: value,
-    });
+    }));
+  };
+
+  const handleOnSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (onSubmit) {
+      onSubmit(data);
+    }
   };
 
   const formatInputValue = (value: any): string => {
@@ -55,7 +58,7 @@ export const InputForm: React.FC<InputFormProps> = ({
 
   return (
     <div className="inputform-area">
-      <form className="inputform-area__form-section">
+      <form className="inputform-area__form-section" onSubmit={handleOnSubmit}>
         <div className="form-section__input-buttons">
           {inputType.split("_")[0] === "distilation" &&
             changeDistilationType && (
@@ -174,7 +177,7 @@ export const InputForm: React.FC<InputFormProps> = ({
           </tbody>
         </table>
         <div className="form-section__submit-button">
-          <button disabled className="submit-button__element" type="submit">
+          <button className="submit-button__element" type="submit">
             Submit
           </button>
         </div>

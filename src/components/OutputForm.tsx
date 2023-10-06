@@ -1,9 +1,9 @@
 import React from "react";
 import "../styles/outputForm.scss";
 import graphImg from "../assets/images/others/tritation_graph.png";
-import { OutputProps } from "../types/types";
+import { OutputFormProps } from "../types/types";
 
-export const OutputForm: React.FC<OutputProps> = ({ outputType }) => {
+export const OutputForm: React.FC<OutputFormProps> = ({ outputType, data }) => {
   const titleMap = {
     tritation: "Tritation Curve:",
     distilation_unifac: "Gammas:",
@@ -16,6 +16,11 @@ export const OutputForm: React.FC<OutputProps> = ({ outputType }) => {
       <span className="outputform-area__title">
         {/* {titleMap[outputType] || ""} */}
       </span>
+
+      <div className="outputform-area__data">
+        <pre>{JSON.stringify(data, null, 2)}</pre>
+      </div>
+
       <div className="outputform-area__graph">
         <img src={graphImg} alt="graphPlaceholder" />
       </div>

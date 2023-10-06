@@ -4,10 +4,10 @@ export const templates: DataTypesTemplates = {
   tritation: [
     {
       id: 1,
-      type: 'acid',
+      type: 'A',
       conc: 1,
       addition: 1,
-      vol: 10,
+      volume: 10,
     },
   ],
   distilation_unifac: [
@@ -26,7 +26,7 @@ export const templates: DataTypesTemplates = {
       temperature: 40,
       compound1: "C7H8",
       compound2: "C6H6",
-      x1: 0.016,
+      molar: 0.016,
       state: "vapor",
     },
   ],

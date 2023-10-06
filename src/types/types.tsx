@@ -13,10 +13,12 @@ export type ModuleButtonProps = {
 export type InputFormProps = {
   inputType: string;
   changeDistilationType?: (data: any) => void;
+  onSubmit?: (data: any) => void;
 };
 
-export type OutputProps = {
+export type OutputFormProps = {
   outputType: string;
+  data?: any;
 };
 
 export type TitleProps = {
@@ -49,9 +51,9 @@ type DataTypeMapFieldProps = {
 
 type TritationTemplateType = {
   id: number;
-  type: "acid" | "base";
+  type: "A" | "B";
   conc: number;
-  vol: number;
+  volume: number;
   addition: number;
 };
 
@@ -69,7 +71,7 @@ type DistilationRaoultTemplateType = {
   temperature: number;
   compound1: string;
   compound2: string;
-  x1: number;
+  molar: number;
   state: string;
   graphType?: string;
 };

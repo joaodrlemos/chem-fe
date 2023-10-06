@@ -4,7 +4,7 @@ export const dataTypes: DataTypesMap = {
   tritation: [
     { name: "type", label: "Type" },
     { name: "conc", label: "Concentration" },
-    { name: "vol", label: "Volume" },
+    { name: "volume", label: "Volume" },
     { name: "addition", label: "Add Volume" },
   ],
   distilation_unifac: [           
@@ -18,7 +18,7 @@ export const dataTypes: DataTypesMap = {
     { name: "temperature", label: "Temperature(ºC)" },
     { name: "compound1", label: "Compound 1" },
     { name: "compound2", label: "Compound 2" },
-    { name: "x1", label: "x1" },
+    { name: "molar", label: "x1" },
     { name: "state", label: "State" },
     { name: "graphType", label: "Graph Type " },
   ],
