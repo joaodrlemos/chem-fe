@@ -12,7 +12,7 @@ export type ModuleButtonProps = {
 
 export type InputFormProps = {
   inputType: string;
-  typeSubmit?: (data: any) => void;
+  changeDistilationType?: (data: any) => void;
 };
 
 export type OutputProps = {

@@ -11,7 +11,7 @@ export const DistilationPage: React.FC = () => {
   const [currentDistilationType, setCurrentDistilationType] =
     useState("distilation_unifac");
 
-  const handleSubmitChange = (destilationType: string) => {
+  const handleDistilationTypeChange = (destilationType: string) => {
     setCurrentDistilationType(destilationType);
   };
 
@@ -27,8 +27,8 @@ export const DistilationPage: React.FC = () => {
           <InputForm
             key={currentDistilationType}
             inputType={currentDistilationType}
-            typeSubmit={(destilationType) =>
-              handleSubmitChange(destilationType)
+            changeDistilationType={(destilationType) =>
+              handleDistilationTypeChange(destilationType)
             }
           />
           <OutputForm outputType={currentDistilationType} />

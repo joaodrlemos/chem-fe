@@ -6,7 +6,7 @@ import { templates } from "../assets/data/templates";
 
 export const InputForm: React.FC<InputFormProps> = ({
   inputType,
-  typeSubmit,
+  changeDistilationType,
 }) => {
   const [data, setData] = React.useState<any>({});
   const [inputFields, setInputFields] = useState(dataTypes[inputType]);
@@ -34,11 +34,6 @@ export const InputForm: React.FC<InputFormProps> = ({
     });
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    // typeSubmit(data);
-  };
-
   const formatInputValue = (value: any): string => {
     if (typeof value === "number") {
       return value.toString();
@@ -60,21 +55,22 @@ export const InputForm: React.FC<InputFormProps> = ({
 
   return (
     <div className="inputform-area">
-      <form className="inputform-area__form-section" onSubmit={handleSubmit}>
+      <form className="inputform-area__form-section">
         <div className="form-section__input-buttons">
-          {inputType.split("_")[0] === "distilation" && typeSubmit && (
-            <select
-              className="content__distilation-type-button"
-              value={inputType}
-              onChange={(e) => typeSubmit(e.target.value)}
-            >
-              {Object.keys(distilationTypes).map((type) => (
-                <option key={type} value={type}>
-                  {type.split("_")[1]}
-                </option>
-              ))}
-            </select>
-          )}
+          {inputType.split("_")[0] === "distilation" &&
+            changeDistilationType && (
+              <select
+                className="content__distilation-type-button"
+                value={inputType}
+                onChange={(e) => changeDistilationType(e.target.value)}
+              >
+                {Object.keys(distilationTypes).map((type) => (
+                  <option key={type} value={type}>
+                    {type.split("_")[1]}
+                  </option>
+                ))}
+              </select>
+            )}
           <div
             style={{
               justifyContent: inputType === "tritation" ? "flex-start" : "",
@@ -168,6 +164,13 @@ export const InputForm: React.FC<InputFormProps> = ({
                 </tr>
               );
             })}
+            {inputType === "distilation_kvalue" && (
+              <tr className="inputs-row">
+                <td>
+                  <span className="inputs-label more-compounds-button">+</span>
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
         <div className="form-section__submit-button">

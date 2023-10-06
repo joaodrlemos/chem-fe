@@ -8,18 +8,6 @@ import { OutputForm } from "../components/OutputForm";
 
 export const TritationPage: React.FC = () => {
   const { user } = useAuth();
-  const [tritationValues, setTritationValues] = useState({});
-
-  const handleSubmit = (values: { [key: string]: string }) => {
-    const data = {
-      type: values.type,
-      concentration: values.concentration,
-      volume: values.volume,
-      addVolume: values.addVolume,
-    };
-
-    setTritationValues(data);
-  };
 
   return (
     <div className="main-container">
@@ -30,8 +18,8 @@ export const TritationPage: React.FC = () => {
       />
       <div className="tritation content">
         <div className="content__data-section">
-          <InputForm key={"tritation"} inputType={"tritation"}/>
-          <OutputForm outputType={"tritation"}/>
+          <InputForm key={"tritation"} inputType={"tritation"} />
+          <OutputForm outputType={"tritation"} />
         </div>
       </div>
     </div>
