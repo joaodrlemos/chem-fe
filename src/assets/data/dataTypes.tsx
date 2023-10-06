@@ -3,9 +3,9 @@ import { DataTypesMap } from "../../types/types";
 export const dataTypes: DataTypesMap = {
   tritation: [
     { name: "type", label: "Type" },
-    { name: "concentration", label: "Concentration" },
-    { name: "volume", label: "Volume" },
-    { name: "addVolume", label: "Add Volume" },
+    { name: "conc", label: "Concentration" },
+    { name: "vol", label: "Volume" },
+    { name: "addition", label: "Add Volume" },
   ],
   distilation_unifac: [           
     { name: "temperature", label: "Temperature(ºC)" },
@@ -19,6 +19,7 @@ export const dataTypes: DataTypesMap = {
     { name: "compound1", label: "Compound 1" },
     { name: "compound2", label: "Compound 2" },
     { name: "x1", label: "x1" },
+    { name: "state", label: "State" },
     { name: "graphType", label: "Graph Type " },
   ],
   distilation_kvalue: [

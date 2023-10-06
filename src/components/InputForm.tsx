@@ -36,7 +36,7 @@ export const InputForm: React.FC<InputFormProps> = ({
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    typeSubmit(data);
+    // typeSubmit(data);
   };
 
   const formatInputValue = (value: any): string => {
@@ -62,7 +62,7 @@ export const InputForm: React.FC<InputFormProps> = ({
     <div className="inputform-area">
       <form className="inputform-area__form-section" onSubmit={handleSubmit}>
         <div className="form-section__input-buttons">
-          {inputType.split("_")[0] === "distilation" && (
+          {inputType.split("_")[0] === "distilation" && typeSubmit && (
             <select
               className="content__distilation-type-button"
               value={inputType}
@@ -130,9 +130,31 @@ export const InputForm: React.FC<InputFormProps> = ({
                         onChange={handleChange}
                       >
                         <option value="">Graph Type</option>
-                        <option value="Type1">Equilibrium</option>
-                        <option value="Type2">Temperature</option>
-                        <option value="Type3">Pressure</option>
+                        <option value="equilibrium">Equilibrium</option>
+                        <option value="temperature">Temperature</option>
+                        <option value="pressure">Pressure</option>
+                      </select>
+                    ) : field.name === "type" ? (
+                      <select
+                        className="inputs-graph-type"
+                        name={field.name}
+                        value={data[field.name] || ""}
+                        onChange={handleChange}
+                      >
+                        <option value="">Type</option>
+                        <option value="A">Acid</option>
+                        <option value="B">Base</option>
+                      </select>
+                    ) : field.name === "state" ? (
+                      <select
+                        className="inputs-graph-type"
+                        name={field.name}
+                        value={data[field.name] || ""}
+                        onChange={handleChange}
+                      >
+                        <option value="">State</option>
+                        <option value="vapor">Vapor</option>
+                        <option value="liquid">Liquid</option>
                       </select>
                     ) : (
                       <input

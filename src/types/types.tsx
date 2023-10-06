@@ -12,7 +12,7 @@ export type ModuleButtonProps = {
 
 export type InputFormProps = {
   inputType: string;
-  typeSubmit: (data: any) => void;
+  typeSubmit?: (data: any) => void;
 };
 
 export type OutputProps = {
@@ -49,10 +49,10 @@ type DataTypeMapFieldProps = {
 
 type TritationTemplateType = {
   id: number;
-  type: string;
-  concentration: string;
-  volume: string;
-  addVolume: string;
+  type: "acid" | "base";
+  conc: number;
+  vol: number;
+  addition: number;
 };
 
 type DistilationUnifacTemplateType = {

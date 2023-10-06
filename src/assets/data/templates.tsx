@@ -1,7 +1,15 @@
 import { DataTypesTemplates } from "../../types/types";
 
 export const templates: DataTypesTemplates = {
-  tritation: [],
+  tritation: [
+    {
+      id: 1,
+      type: 'acid',
+      conc: 1,
+      addition: 1,
+      vol: 10,
+    },
+  ],
   distilation_unifac: [
     {
       id: 1,
