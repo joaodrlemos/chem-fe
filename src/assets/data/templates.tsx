@@ -4,7 +4,7 @@ export const templates: DataTypesTemplates = {
   tritation: [
     {
       id: 1,
-      type: 'A',
+      type: "A",
       conc: 1,
       addition: 1,
       volume: 10,
@@ -14,8 +14,8 @@ export const templates: DataTypesTemplates = {
     {
       id: 1,
       temperature: 0,
-      compound1: "Benzeno",
-      compound2: "Tolueno",
+      compound1: "Benzene",
+      compound2: "Toluene",
       molarFractionCompound1: 0.2,
     },
   ],

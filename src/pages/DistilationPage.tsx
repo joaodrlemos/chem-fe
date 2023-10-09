@@ -92,6 +92,7 @@ export const DistilationPage: React.FC = () => {
         compound: [data.compound1, data.compound2],
         molar: data.molar,
         state: data.state,
+        points: 100,
       };
 
       try {
