@@ -16,10 +16,16 @@ export type InputFormProps = {
   onSubmit?: (data: any) => void;
 };
 
-export type OutputFormProps = {
-  outputType: string;
-  data?: any;
-};
+export type OutputTypeKeys =
+  | "tritation"
+  | "distilation_unifac"
+  | "distilation_raoult"
+  | "distilation_kvalue";
+
+export interface OutputFormProps {
+  outputType: OutputTypeKeys;
+  result: any;
+}
 
 export type TitleProps = {
   title: string;
@@ -100,6 +106,18 @@ export type TemplateType = {
   id: number;
   [key: string]: any;
 };
+
+// export type CoordsType = {
+//   [key: string]: number;
+// }
+
+// export type GraphLines = {
+//   [key: string]: CoordsType;
+// }
+
+// export type GraphData = {
+//   [key: string]: GraphLines;
+// }
 
 // AUTH PROVIDER
 

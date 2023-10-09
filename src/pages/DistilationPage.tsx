@@ -5,12 +5,12 @@ import { InputForm } from "../components/InputForm";
 import { TitleSection } from "../components/TitleSection";
 import { useAuth } from "../context/AuthContext";
 import { OutputForm } from "../components/OutputForm";
+import { OutputTypeKeys } from "../types/types";
 import axios from "axios";
 
 export const DistilationPage: React.FC = () => {
   const { user } = useAuth();
   const [distilationResult, setDistilationResult] = useState<any>(null);
-  const [defaultRaoultResult, setDefaultRaoultResult] = useState<any>(null);
   const [currentDistilationType, setCurrentDistilationType] =
     useState("distilation_unifac");
 
@@ -21,14 +21,14 @@ export const DistilationPage: React.FC = () => {
   const handleDistilationSubmit = async (data: any) => {
     let endpoint = "";
     let payload = {};
-    console.log("INPUT DATA:", data);
 
-    if (
-      parseFloat(data.temperature) < -273.15 ||
-      data.temperature === "" ||
-      data.temperature === undefined
-    ) {
-      alert("Temperature has to be a number bigger -273.15.");
+    if (data.temperature === "" || data.temperature === undefined) {
+      alert("Temperature has to be a valid number");
+      return;
+    }
+
+    if (parseFloat(data.temperature) < -273.15) {
+      alert("Temperature cannot be lower than -273.15");
       return;
     }
 
@@ -100,8 +100,9 @@ export const DistilationPage: React.FC = () => {
           "http://localhost:8082/raoult",
           payload
         );
-        setDefaultRaoultResult(response.data);
-        console.log(response.data);
+        setDistilationResult({
+          tableData: { defaultRaoultTableData: response.data },
+        });
       } catch (error) {
         console.error("Error making the API call:", error);
       }
@@ -110,22 +111,32 @@ export const DistilationPage: React.FC = () => {
         data.graphType &&
         (data.graphType !== "" || data.graphType !== undefined)
       ) {
-        endpoint = "raoult/" + data.graphType;
+        try {
+          const response = await axios.post(
+            "http://localhost:8082/raoult/" + data.graphType,
+            payload
+          );
+          setDistilationResult((p: any) =>
+            p
+              ? { ...p, graphData: response.data }
+              : { graphData: response.data }
+          );
+        } catch (error) {
+          console.error("Error making the API call:", error);
+        } finally {
+          return;
+        }
       } else {
-        console.log("payload: ", payload);
         return;
       }
     }
-
-    console.log("payload: ", payload);
 
     try {
       const response = await axios.post(
         "http://localhost:8082/" + endpoint,
         payload
       );
-      setDistilationResult(response.data);
-      console.log(response.data);
+      setDistilationResult({ tableData: response.data });
     } catch (error) {
       console.error("Error making the API call:", error);
     }
@@ -148,7 +159,10 @@ export const DistilationPage: React.FC = () => {
             }
             onSubmit={handleDistilationSubmit}
           />
-          <OutputForm outputType={currentDistilationType} />
+          <OutputForm
+            outputType={currentDistilationType as OutputTypeKeys}
+            result={distilationResult}
+          />
         </div>
       </div>
     </div>

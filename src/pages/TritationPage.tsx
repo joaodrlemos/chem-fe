@@ -39,15 +39,12 @@ export const TritationPage: React.FC = () => {
       volume: data.volume,
     };
 
-    console.log("payload: ", payload);
-
     try {
       const response = await axios.post(
         "http://localhost:8083/simulate",
         payload
       );
-      setTritationResult(response.data);
-      console.log(response.data);
+      setTritationResult({ graphData: response.data });
     } catch (error) {
       console.error("Error making the API call:", error);
     }
@@ -67,7 +64,7 @@ export const TritationPage: React.FC = () => {
             inputType={"tritation"}
             onSubmit={handleTritationSubmit}
           />
-          <OutputForm outputType={"tritation"} />
+          <OutputForm outputType={"tritation"} result={tritationResult} />
         </div>
       </div>
     </div>

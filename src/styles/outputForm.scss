@@ -19,18 +19,7 @@
     margin-bottom: 40px;
   }
 
-  .outputform-area__graph {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    img {
-      max-width: 800px;
-
-      @include mobile {
-        max-width: 100%;
-      }
-    }
+  .outputform-area__graph-container {
+    background-color: white;
   }
 }
