@@ -19,39 +19,20 @@ export const OutputForm: React.FC<OutputFormProps> = ({
   const [outputTitle, setOutputTitle] = useState("");
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const chartRef = useRef<Chart | null>(null);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [flipTableVertically, setFlipTableVertically] = useState(false);
   const titleMap = {
     tritation: "Tritation Curve",
     distilation_unifac: "Gammas",
     distilation_raoult: "Raoult",
     distilation_kvalue: "K Value",
   };
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [flipTableVertically, setFlipTableVertically] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (result) {
-      const firstKey = Object.keys(result?.tableData || {})[0];
-      if (firstKey) {
-        const tableData = result.tableData[firstKey];
-        if (windowWidth <= 890) {
-          setFlipTableVertically(Object.keys(tableData || {}).length > 3);
-        } else {
-          setFlipTableVertically(false);
-        }
-      }
-    }
-  }, [windowWidth]);
+  const axisLabelMap: { [key: string]: { x: string; y: string } } = {
+    tritation: { x: "Vol(ml)", y: "PH" },
+    equilibrium: { x: "Molar Fraction(i)", y: "Molar Fraction(i)" },
+    temperature: { x: "xi", y: "T(ºK)" },
+    pressure: { x: "xi", y: "P(bar)" },
+  };
 
   const generateGraphConfig = (
     graphData: GraphDataType
@@ -73,6 +54,9 @@ export const OutputForm: React.FC<OutputFormProps> = ({
       });
     }
 
+    const xLabel = axisLabelMap[result.graphType]?.x || "x";
+    const yLabel = axisLabelMap[result.graphType]?.y || "y";
+
     const config: ChartConfiguration = {
       type: "line",
       data: {
@@ -84,9 +68,17 @@ export const OutputForm: React.FC<OutputFormProps> = ({
           x: {
             type: "linear",
             position: "bottom",
+            title: {
+              display: true,
+              text: xLabel,
+            },
           },
           y: {
             type: "linear",
+            title: {
+              display: true,
+              text: yLabel,
+            },
           },
         },
       },
@@ -167,7 +159,30 @@ export const OutputForm: React.FC<OutputFormProps> = ({
       LineElement,
       CategoryScale
     );
+
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
+
+  useEffect(() => {
+    if (result) {
+      const firstKey = Object.keys(result?.tableData || {})[0];
+      if (firstKey) {
+        const tableData = result.tableData[firstKey];
+        if (windowWidth <= 890) {
+          setFlipTableVertically(Object.keys(tableData || {}).length > 3);
+        } else {
+          setFlipTableVertically(false);
+        }
+      }
+    }
+  }, [windowWidth]);
 
   useEffect(() => {
     if (result) {

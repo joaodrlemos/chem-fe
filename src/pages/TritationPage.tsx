@@ -44,7 +44,7 @@ export const TritationPage: React.FC = () => {
         "http://localhost:8083/simulate",
         payload
       );
-      setTritationResult({ graphData: response.data });
+      setTritationResult({ graphType:'tritation',graphData: response.data });
     } catch (error) {
       console.error("Error making the API call:", error);
     }

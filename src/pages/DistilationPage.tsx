@@ -118,8 +118,8 @@ export const DistilationPage: React.FC = () => {
           );
           setDistilationResult((p: any) =>
             p
-              ? { ...p, graphData: response.data }
-              : { graphData: response.data }
+              ? { ...p, graphType: data.graphType, graphData: response.data }
+              : { graphType: data.graphType, graphData: response.data }
           );
         } catch (error) {
           console.error("Error making the API call:", error);
