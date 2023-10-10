@@ -28,10 +28,10 @@ export const OutputForm: React.FC<OutputFormProps> = ({
     distilation_kvalue: "K Value",
   };
   const axisLabelMap: { [key: string]: { x: string; y: string } } = {
-    tritation: { x: "Vol(ml)", y: "PH" },
-    equilibrium: { x: "Molar Fraction(i)", y: "Molar Fraction(i)" },
-    temperature: { x: "xi", y: "T(ºK)" },
-    pressure: { x: "xi", y: "P(bar)" },
+    tritation: { x: "Vol(ml)", y: "Ph" },
+    equilibrium: { x: "Molar Fraction(i in liquid)", y: "Molar Fraction(i in vapor)" },
+    temperature: { x: "Xi", y: "T(K)" },
+    pressure: { x: "Xi", y: "P(bar)" },
   };
 
   const generateGraphConfig = (
