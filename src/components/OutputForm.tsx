@@ -10,7 +10,7 @@ import {
 } from "chart.js";
 import "chart.js/auto";
 import "../styles/outputForm.scss";
-import { OutputFormProps } from "../types/types";
+import { GraphDataType, OutputFormProps } from "../types/types";
 
 export const OutputForm: React.FC<OutputFormProps> = ({
   outputType,
@@ -25,22 +25,33 @@ export const OutputForm: React.FC<OutputFormProps> = ({
     distilation_raoult: "Raoult",
     distilation_kvalue: "K Value",
   };
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [flipTableVertically, setFlipTableVertically] = useState(false);
 
   useEffect(() => {
-    Chart.register(
-      LineController,
-      LinearScale,
-      PointElement,
-      LineElement,
-      CategoryScale
-    );
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
-  type GraphDataType = {
-    [graphName: string]: {
-      [x: string]: number;
-    };
-  };
+  useEffect(() => {
+    if (result) {
+      const firstKey = Object.keys(result?.tableData || {})[0];
+      if (firstKey) {
+        const tableData = result.tableData[firstKey];
+        if (windowWidth <= 890) {
+          setFlipTableVertically(Object.keys(tableData || {}).length > 3);
+        } else {
+          setFlipTableVertically(false);
+        }
+      }
+    }
+  }, [windowWidth]);
 
   const generateGraphConfig = (
     graphData: GraphDataType
@@ -90,24 +101,45 @@ export const OutputForm: React.FC<OutputFormProps> = ({
         const tableType = Object.keys(tableData)[0];
         const tableRows = Object.entries(tableData[tableType]);
 
-        return (
-          <table>
-            <thead>
-              <tr>
-                {tableRows.map(([key], index) => (
-                  <th key={index}>{key}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                {tableRows.map(([_, value], index) => (
-                  <td key={index}>{(value as number).toString()}</td>
-                ))}
-              </tr>
-            </tbody>
-          </table>
-        );
+        if (flipTableVertically) {
+          return (
+            <div className="outputform-area__table-container">
+              <table>
+                <tbody>
+                  {tableRows.map(([key, value], index) => (
+                    <tr key={index}>
+                      <th>{key}</th>
+                      <td data-label={key}>{(value as number).toString()}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          );
+        } else {
+          return (
+            <div className="outputform-area__table-container">
+              <table>
+                <thead>
+                  <tr>
+                    {tableRows.map(([key], index) => (
+                      <th key={index}>{key}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    {tableRows.map(([key, value], index) => (
+                      <td key={index} data-label={key}>
+                        {(value as number).toString()}
+                      </td>
+                    ))}
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          );
+        }
       }
     }
     return null;
@@ -128,14 +160,19 @@ export const OutputForm: React.FC<OutputFormProps> = ({
   };
 
   useEffect(() => {
-    if (result) {
-      setOutputTitle(titleMap[outputType]);
-    }
-  }, [result, outputType]);
+    Chart.register(
+      LineController,
+      LinearScale,
+      PointElement,
+      LineElement,
+      CategoryScale
+    );
+  }, []);
 
   useEffect(() => {
     if (result) {
-      console.log(outputType, result);
+      console.log(outputTitle, result);
+      setOutputTitle(titleMap[outputType]);
     }
   }, [result]);
 

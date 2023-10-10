@@ -107,17 +107,11 @@ export type TemplateType = {
   [key: string]: any;
 };
 
-// export type CoordsType = {
-//   [key: string]: number;
-// }
-
-// export type GraphLines = {
-//   [key: string]: CoordsType;
-// }
-
-// export type GraphData = {
-//   [key: string]: GraphLines;
-// }
+export type GraphDataType = {
+  [graphName: string]: {
+    [x: string]: number;
+  };
+};
 
 // AUTH PROVIDER
 
