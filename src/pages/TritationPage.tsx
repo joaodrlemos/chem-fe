@@ -22,12 +22,12 @@ export const TritationPage: React.FC = () => {
       return;
     }
 
-    if (data.volume <= 0 || !Number.isInteger(data.volume)) {
+    if (data.volume <= 0 || !Number.isInteger(Number(data.volume))) {
       alert("Volume number has to be a positive integer.");
       return;
     }
 
-    if (data.addition <= 0 || !Number.isInteger(data.addition)) {
+    if (data.addition <= 0 || !Number.isInteger(Number(data.addition))) {
       alert("The add volume number has to be a positive integer.");
       return;
     }
